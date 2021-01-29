@@ -1,0 +1,25 @@
+.authorization__button {
+  margin-bottom: 15px;
+  width: 100%;
+  min-height: 46px;
+  border: none;
+  border-radius: 2px;
+  background-color: #ffffff;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.22;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s linear;
+}
+
+.authorization__button:hover {
+  background-color: rgba(255,255,255,0.85);
+}
+
+@media (max-width: 515px) {
+  .authorization__button {
+    font-size: 16px;
+    line-height: 19px;
+  }
+}

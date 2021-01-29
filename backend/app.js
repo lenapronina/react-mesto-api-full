@@ -1,12 +1,26 @@
+// require('dotenv').config();
+
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const usersRouter = require('./routes/users.js');
 const cardsRouter = require('./routes/cards.js');
 
+const { login, createUser } = require('./controllers/users.js');
+const auth = require('./middlewares/auth');
+
 const app = express();
 const { PORT = 3000 } = process.env;
+
+app.options('*', cors());
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+  next();
+});
 
 // connect to local mongo database
 mongoose.connect('mongodb://localhost:27017/mestodb', {
@@ -19,17 +33,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 // middleware for processing POST requests
 app.use(bodyParser.json());
 
-// temporary solution for authorization
-app.use((req, res, next) => {
-  req.user = {
-    _id: '5ff44598c054342f03beb755',
-  };
-  next();
-});
+app.post('/signup', createUser);
+app.post('/signin', login);
 
-app.use('/users', usersRouter);
+app.use('/users', auth, usersRouter);
 
-app.use('/cards', cardsRouter);
+app.use('/cards', auth, cardsRouter);
 
 app.use('*', (req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });

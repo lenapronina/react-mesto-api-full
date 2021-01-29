@@ -1,0 +1,25 @@
+.header__auth-sign {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.22;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #a9a9a9;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+}
+
+.header__auth-sign:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  .header__auth-sign {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}

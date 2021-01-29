@@ -1,0 +1,16 @@
+.authorization__signin-link {
+  display: block;
+  margin: 0 auto;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+}
+
+.authorization__signin-link:hover {
+  opacity: 0.6;
+}

@@ -1,0 +1,12 @@
+.popup__title_sign-status {
+  margin: 0 auto 24px;
+  max-width: 385px;
+  text-align: center;
+}
+
+@media (max-width: 515px) {
+  .popup__title_sign-status {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+}

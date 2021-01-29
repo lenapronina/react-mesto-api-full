@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lenapronina/express-mesto.git"
+    "url": "git+https://github.com/lenapronina/react-mesto-api-full.git"
   },
   "keywords": [],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lenapronina/express-mesto/issues"
+    "url": "https://github.com/lenapronina/react-mesto-api-full/issues"
   },
-  "homepage": "https://github.com/lenapronina/express-mesto#readme",
+  "homepage": "https://github.com/lenapronina/react-mesto-api-full#readme",
   "devDependencies": {
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -29,8 +29,13 @@
     "nodemon": "^2.0.6"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.11.9"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.9",
+    "validator": "^13.5.2"
   }
 }

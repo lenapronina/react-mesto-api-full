@@ -1,0 +1,6 @@
+.header__auth_type_mobile {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  flex-direction: column;
+  border-bottom: 1px solid #545454;
+}
