@@ -1,0 +1,36 @@
+{
+  "name": "express-mesto",
+  "version": "1.0.0",
+  "description": "Intro to Express JS",
+  "main": "app.js",
+  "author": {
+    "name": "Lena Pronina",
+    "email": "emaya.lena@yandex.ru"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lenapronina/express-mesto.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lenapronina/express-mesto/issues"
+  },
+  "homepage": "https://github.com/lenapronina/express-mesto#readme",
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.9"
+  }
+}
