@@ -14,7 +14,6 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function App() {
 
   const [ loggedIn, setLoggedIn ] = useState(false);
-  const [ userData, setUserData ] = useState({});
 
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [registerSuccess, setRegisterSuccess] = useState(false);
@@ -24,8 +23,10 @@ function App() {
   const [path, setPath] = useState('/sign-in');
 
   // set useState for CurrentUserContext
+
   const [currentUser, setCurrentUser] = useState('');
 
+  
   // states for updating card list
   const [cards, setCards] = useState([]);
   const [isDataLoaded, setDataLoaded] = useState(false);
@@ -47,7 +48,7 @@ function App() {
       // run Loader
       setDataLoaded(true);
       //fetch profile and cards data
-      api.getInitialCards()
+      api.getInitialCards(localStorage.getItem('jwt'))
       .then((initialCardsList) => {
 
         setCards(initialCardsList.map((card)=>({
@@ -62,29 +63,16 @@ function App() {
       })
       .catch((err)=> console.log(err))
       .finally(()=> setDataLoaded(false));
+
+      
     }  
   }, [loggedIn]);
 
-
-  useEffect(() => {
-    if(loggedIn){
-     //fetch profile and cards data
-     api.getUserInfo()
-     .then((userProfileData) => {   
-
-       //update data with server response
-       setCurrentUser(userProfileData);
-     })
-     .catch((err)=> console.log(err));
-    }
-  }, [loggedIn]);
-
-
   const handleCardLike = (card) => {
     // check if card has already have a like
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, isLiked)
+    api.changeLikeCardStatus(card._id, isLiked, localStorage.getItem('jwt'))
       .then((newCard) => {
         //create new cardList replacing liked/disliked card
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
@@ -96,7 +84,7 @@ function App() {
   const handleCardDelete = (card) => {
     setIsLoading(true);
 
-    api.deleteCard(card._id)
+    api.deleteCard(card._id, localStorage.getItem('jwt'))
       .then(()=>{
         //create new cardList removing card with certain id
         const newCards = cards.filter((c) => c._id !== card._id);
@@ -110,7 +98,7 @@ function App() {
   const handleUpdateUser = (e) => {
     setIsLoading(true);
 
-    api.patchUpdatedUserInfo(e)
+    api.patchUpdatedUserInfo(e, localStorage.getItem('jwt'))
       .then((updatedUserData)=> {
         // update user info avatar with new data
         setCurrentUser(updatedUserData);
@@ -123,7 +111,7 @@ function App() {
 
   const handleUpdateAvatar = (e) => {
     setIsLoading(true);
-    api.patchUserAvatar(e)
+    api.patchUserAvatar(e, localStorage.getItem('jwt'))
       .then((updatedUserAvatar)=> {
         // update user avatar with new data
         setCurrentUser(updatedUserAvatar);
@@ -135,7 +123,7 @@ function App() {
 
   const handleAddPlaceSubmit = (e) => {
     setIsLoading(true);
-    api.postNewCard(e)
+    api.postNewCard(e, localStorage.getItem('jwt'))
       .then((newCard)=>{
         // add new card to card list
         setCards([newCard, ...cards]);
@@ -187,10 +175,6 @@ function App() {
     setInfoTooltipOpen(false);
   }
 
-  const handleLogged = () => {
-    setLoggedIn(true);
-  }
-
   const handleOpened = () => {
     setInfoTooltipOpen(true);
   }
@@ -202,10 +186,7 @@ function App() {
         .then((res) => {
           if(res){
             setLoggedIn(true);
-            setUserData({
-              id: res._id,
-              email: res.email
-            });
+            setCurrentUser(res);
           }
         })
         .catch((err) => console.log(err)); 
@@ -217,8 +198,7 @@ function App() {
       .then((data) => {
         //check for a token in response
         if (data.token) {
-          handleLogged();
-          history.push('/user-cards');
+          setLoggedIn(true);
         }
       })
       .catch(err => console.log(err));
@@ -242,29 +222,28 @@ function App() {
     });
   }
 
-  const handleRegisterSuccess = (value)=> {
+  function handleRegisterSuccess(value){
     setRegisterSuccess(value);
   }
 
-  const handleSignOut = () => {
+  function handleSignOut(){
     localStorage.removeItem('jwt');
     setLoggedIn(false);
-    
     history.push('/sign-in');
     setPath('/sign-in');
   }
 
-  const handleRegister = () => {
+  function handleRegister(){
     history.push('/sign-up');
     setPath('/sign-up');
   }
 
-  const handleLogin = () => {
+  function handleLogin(){
     history.push('/sign-in');
     setPath('/sign-in');
   }
 
-  const handleClick = () => {
+  function handleClick(){
     if(history.location.pathname === '/user-cards'){
       handleSignOut();
     } else if(history.location.pathname ==='/sign-in'){
@@ -279,6 +258,7 @@ function App() {
     if(loggedIn) {
       history.push('/user-cards');
       setPath('/user-cards');
+      // renderUser();
     }
   }, [loggedIn, history]);
 
@@ -287,7 +267,6 @@ function App() {
       <div className="App page">
         <Header 
           loggedIn={loggedIn}
-          userData={userData}
           handleSignOut={handleClick}
           pathName={path}
         />

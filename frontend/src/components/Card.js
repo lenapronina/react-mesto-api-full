@@ -8,9 +8,9 @@ function Card({card, onCardClick, onCardLike, onDeleteButtonClick}){
   const currentUserData = React.useContext(CurrentUserContext);
 
   // compare card id and card owner id
-  const isOwn = (card.owner._id === currentUserData._id);
+  const isOwn = (card.owner === currentUserData._id);
   // check if card has already have a like
-  const isLiked = card.likes.some(i => i._id === currentUserData._id);
+  const isLiked = card.likes.some(i => i === currentUserData._id);
 
   // variables for styling elements
   const cardLikeButtonClassName = (
@@ -20,7 +20,7 @@ function Card({card, onCardClick, onCardLike, onDeleteButtonClick}){
     `mesto-card__trash ${isOwn ? '' : 'mesto-card__trash_hidden'}`
   );
 
-  function handleClick() {
+  const handleClick = () => {
     onCardClick(card);
   }
 
