@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "./static/css/main.d49fffb1.chunk.css",
+    "main.js": "./static/js/main.bef6edbc.chunk.js",
+    "main.js.map": "./static/js/main.bef6edbc.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.bb07264e.js",
+    "runtime-main.js.map": "./static/js/runtime-main.bb07264e.js.map",
+    "static/css/2.0f52be0d.chunk.css": "./static/css/2.0f52be0d.chunk.css",
+    "static/js/2.0a3c805b.chunk.js": "./static/js/2.0a3c805b.chunk.js",
+    "static/js/2.0a3c805b.chunk.js.map": "./static/js/2.0a3c805b.chunk.js.map",
+    "index.html": "./index.html",
+    "static/css/2.0f52be0d.chunk.css.map": "./static/css/2.0f52be0d.chunk.css.map",
+    "static/css/main.d49fffb1.chunk.css.map": "./static/css/main.d49fffb1.chunk.css.map",
+    "static/js/2.0a3c805b.chunk.js.LICENSE.txt": "./static/js/2.0a3c805b.chunk.js.LICENSE.txt",
+    "static/media/index.css": "./static/media/profile-edit-button.8667ac4a.svg",
+    "static/media/header-burger-menu.a46d5c1c.svg": "./static/media/header-burger-menu.a46d5c1c.svg",
+    "static/media/header-close-button.6dc19357.svg": "./static/media/header-close-button.6dc19357.svg",
+    "static/media/header-logo.a307e1c4.svg": "./static/media/header-logo.a307e1c4.svg",
+    "static/media/sign-up-failure.df8eddf6.svg": "./static/media/sign-up-failure.df8eddf6.svg",
+    "static/media/sign-up-success.1b6082f8.svg": "./static/media/sign-up-success.1b6082f8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bb07264e.js",
+    "static/css/2.0f52be0d.chunk.css",
+    "static/js/2.0a3c805b.chunk.js",
+    "static/css/main.d49fffb1.chunk.css",
+    "static/js/main.bef6edbc.chunk.js"
+  ]
+}
