@@ -4,7 +4,10 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { celebrate, Joi, errors } = require('celebrate');
+const NotFoundError = require('./errors/NotFoundError');
 
+const allErrorHandler = require('./middlewares/errorHandler');
 const usersRouter = require('./routes/users.js');
 const cardsRouter = require('./routes/cards.js');
 
@@ -30,19 +33,28 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-// middleware for processing POST requests
-app.use(bodyParser.json());
-
 app.post('/signup', createUser);
-app.post('/signin', login);
+
+app.post('/signin', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(8),
+  }),
+}), login);
+
+app.use(bodyParser.json());
 
 app.use('/users', auth, usersRouter);
 
 app.use('/cards', auth, cardsRouter);
 
-app.use('*', (req, res) => {
-  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
+app.use('*', () => {
+  throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
+
+app.use(errors());
+
+app.use(allErrorHandler);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
