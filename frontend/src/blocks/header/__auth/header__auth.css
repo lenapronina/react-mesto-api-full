@@ -1,0 +1,11 @@
+.header__auth {
+  display: flex;
+  justify-self: end;
+}
+
+@media (max-width: 425px) {
+  .header__auth {
+    margin-right: 30px;
+  }
+}
+
