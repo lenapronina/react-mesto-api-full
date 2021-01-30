@@ -1,9 +1,9 @@
 {
-  "name": "mesto-react",
+  "name": "mesto-react-auth-full",
   "version": "0.1.0",
   "description": "A social network with travellers photos",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://netumesta.students.nomoredomains.work",
   "author": {
     "name": "Lena Pronina",
     "email": "emaya.lena@yandex.ru"

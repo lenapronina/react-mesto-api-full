@@ -20,7 +20,7 @@ function App() {
 
   const history = useHistory();
 
-  const [path, setPath] = useState('/sign-in');
+  const [path, setPath] = useState('/');
 
   // set useState for CurrentUserContext
 
@@ -271,14 +271,6 @@ function App() {
           pathName={path}
         />
         <Switch>
-          <Route path="/sign-up">
-            <Register 
-              onRegister={onRegister}  
-            />
-          </Route>
-          <Route path="/sign-in">
-            <Login onLogin={onLogin} />
-          </Route>
           <ProtectedRoute 
             path="/user-cards" 
             component={UserPage}
@@ -305,8 +297,16 @@ function App() {
             isEditAvatarPopupOpen={isEditAvatarPopupOpen}
             isAddPlacePopupOpen={isAddPlacePopupOpen}
           />
+          <Route path="/sign-up">
+            <Register 
+              onRegister={onRegister}  
+            />
+          </Route>
+          <Route path="/sign-in">
+            <Login onLogin={onLogin} />
+          </Route>
           <Route path="/">
-            {loggedIn ? <Redirect to="/user-cards" /> : <Redirect to="/sign-in" />}
+            {loggedIn ? (<Redirect to="/user-cards" />) : (<Redirect to="/sign-in" />)}
           </Route>
         </Switch>
         <InfoTooltip 
