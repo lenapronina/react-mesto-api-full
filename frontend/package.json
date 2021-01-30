@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A social network with travellers photos",
   "private": true,
-  "homepage": "https://lenapronina.github.io/react-mesto-auth/",
+  "homepage": ".",
   "author": {
     "name": "Lena Pronina",
     "email": "emaya.lena@yandex.ru"
@@ -25,7 +25,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* lenapronina@178.154.254.122:/home/lenapronina/react-mesto-api-full/build",
+    "deploy": "npm run build && scp -r ./build/* lenapronina@178.154.254.122:/home/lenapronina/react-mesto-api-full/frontend/build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
