@@ -21,12 +21,12 @@ function Header({
   const { width } = useViewport();
  
   const setButton = () => {
-    if(pathName === '/sign-up' ){
-      setButtonText('Войти');
+    if(pathName === '/user-cards' ){
+      setButtonText('Выйти');
     } else if(pathName === '/sign-in'){
       setButtonText('Регистрация');
     } else {
-      setButtonText('Выйти');
+      setButtonText('Войти');
     }
   }
 

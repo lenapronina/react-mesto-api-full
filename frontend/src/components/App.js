@@ -20,7 +20,7 @@ function App() {
 
   const history = useHistory();
 
-  const [path, setPath] = useState('/');
+  const [path, setPath] = useState('/sign-in');
 
   // set useState for CurrentUserContext
 
@@ -210,6 +210,7 @@ function App() {
       if(res.statusCode !== 400){
         handleRegisterSuccess(true);
         history.push('/sign-in');
+        setPath('/sign-in');
       } else {
         handleRegisterSuccess(false);
       }
@@ -258,7 +259,6 @@ function App() {
     if(loggedIn) {
       history.push('/user-cards');
       setPath('/user-cards');
-      // renderUser();
     }
   }, [loggedIn, history]);
 
