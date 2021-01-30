@@ -1,3 +1,5 @@
 const SALT_ROUNDS = 10;
 
-module.exports = { SALT_ROUNDS };
+const SECRET_KEY = '3f2a4062c435b37d360f4ce5439752e87ac8f2c6c1475b081583130a3bbb36d4';
+
+module.exports = { SALT_ROUNDS, SECRET_KEY };

@@ -1,32 +1,36 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const { SALT_ROUNDS } = require('../configs');
+const { SALT_ROUNDS, SECRET_KEY } = require('../configs');
 
 const ConflictError = require('../errors/ConflictError');
 
-const createUser = (req, res) => {
-  const { email, password } = req.body;
+const createUser = (req, res, next) => {
+  const {
+    name,
+    about,
+    avatar,
+    email,
+    password,
+  } = req.body;
 
-  res.status(200).send({ email });
-
-  // return User.findOne({ email })
-  //   .then((user) => {
-  //     if (user) {
-  //       throw new ConflictError('Пользователь с таким email уже существует');
-  //     }
-  //     // return bcrypt.hash(password, SALT_ROUNDS)
-  //     //   .then((hash) => User.create({
-  //     //     name,
-  //     //     about,
-  //     //     avatar,
-  //     //     email,
-  //     //     password: hash,
-  //     //   }))
-  //     //   .then((data) => res.status(200).send({ email: data.email }))
-  //     //   .catch(next);
-  //   })
-  //   .catch(next);
+  return User.findOne({ email })
+    .then((user) => {
+      if (user) {
+        throw new ConflictError('Пользователь с таким email уже существует');
+      }
+      return bcrypt.hash(password, SALT_ROUNDS)
+        .then((hash) => User.create({
+          name,
+          about,
+          avatar,
+          email,
+          password: hash,
+        }))
+        .then((data) => res.status(200).send({ email: data.email }))
+        .catch(next);
+    })
+    .catch(next);
 };
 
 const login = (req, res, next) => {
@@ -34,7 +38,7 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '7d' });
       res.send({ token });
     })
     .catch(next);

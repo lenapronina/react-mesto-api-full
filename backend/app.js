@@ -5,6 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/NotFoundError');
 
 const allErrorHandler = require('./middlewares/errorHandler');
@@ -25,6 +26,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(bodyParser.json());
+
 // connect to local mongo database
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
@@ -33,7 +36,14 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-app.post('/signup', createUser);
+app.use(requestLogger);
+
+app.post('/signup', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(8),
+  }),
+}), createUser);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -42,8 +52,6 @@ app.post('/signin', celebrate({
   }),
 }), login);
 
-app.use(bodyParser.json());
-
 app.use('/users', auth, usersRouter);
 
 app.use('/cards', auth, cardsRouter);
@@ -51,6 +59,8 @@ app.use('/cards', auth, cardsRouter);
 app.use('*', () => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
