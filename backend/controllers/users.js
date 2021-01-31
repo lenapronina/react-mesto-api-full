@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const { SALT_ROUNDS, SECRET_KEY } = require('../configs');
 
+const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
 
 const createUser = (req, res, next) => {
@@ -49,11 +50,23 @@ const getUsers = (req, res, next) => User.find({})
   .then((users) => res.status(200).send(users))
   .catch(next);
 
-// get one user selected by id
+// get authorized user
 const getUser = (req, res, next) => User.findById(req.user._id)
   .orFail(new Error('FindIdError'))
   .then((user) => res.status(200).send(user))
   .catch(next);
+
+// get one user selected by id
+const getUserById = (req, res, next) => {
+  User.findById(req.params._id)
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Нет пользователя с таким id');
+      }
+      res.status(200).send(user);
+    })
+    .catch(next);
+};
 
 // update profile data
 const patchProfile = (req, res, next) => {
@@ -84,6 +97,7 @@ const patchAvatar = (req, res, next) => {
 module.exports = {
   getUsers,
   getUser,
+  getUserById,
   createUser,
   login,
   patchProfile,
