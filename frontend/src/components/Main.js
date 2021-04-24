@@ -4,7 +4,6 @@ import Loader from 'react-loader-spinner';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-
 function Main({
     cards,
     onEditProfile,
