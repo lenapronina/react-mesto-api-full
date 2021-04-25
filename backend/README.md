@@ -1,17 +1,76 @@
 # Бэкенд проекта Mesto
 
-## Директории
+- Домен api:  **api.netumesta.students.nomoredomains.work**
 
-`/models` — папка с моделями card и user
-`/routes` — папка с файлами роутера
-`/controllers` — папка c callback-функциями роутера
-`/helpers` — папка cо вспомогательными функциями
+### Начать работу
 
-## Запуск проекта
+1. Перейдите в директорию
 
-`npm run start` — запускает сервер   
-`npm run dev` — запускает сервер с hot-reload
+  ```
+  cd backend
+  ```
 
-### Используемые технологии
+2. Установите нужные модули из package.json
 
-JS · Node JS · Express JS· Git · MongoDB · Mongoose
+  ```
+  npm install
+  ```
+
+3. Запустите сервер mongo
+
+  ```
+  mongod
+  ```
+
+4. Запустите приложение
+  
+  ```
+  # запуск в production режиме
+  npm run start
+  
+  # запуск в dev режиме, c функцией hot-reload
+  npm run dev
+  ```
+
+### Доступная функциональность
+  1. Регистрация и авторизация пользователя:
+  ```
+  # создание пользователя
+  POST /signup
+  # вход в систему
+  POST /signin 
+  ```
+  2. Работа с данными пользователя:
+  ```
+  # получение данных
+  GET /users/me
+  
+  # обновление информации
+  PATCH /users/me
+
+  # обновление аватара
+  PATCH /users/me/avatar
+  
+  ```
+  3. Работа с данными о фильмах:
+  
+  ```
+  # получение всех карточек
+  GET /cards
+  
+  # добавление нового места
+  POST /cards
+  
+  # удаление места
+  DELETE /cards/cardId
+
+  # добавление лайка карточке
+  PUT /cards/cardId//likes
+  
+  # удаление лайка 
+  DELETE /cards/cardId/likes  
+  ```
+
+### **Используемые технологии**
+
+git · npm · JS · Node JS · Express JS · MongoDB · Nginx · YandexCloud
